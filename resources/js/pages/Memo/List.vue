@@ -1,5 +1,8 @@
 <template>
-    <h1 class="text-4xl mb-8">メモ一覧</h1>
+    <div class="flex justify-between items-center">
+        <h1 class="text-4xl mb-8">メモ一覧</h1>
+        <Link href="/new" class="btn btn-primary">新規作成</Link>
+    </div>
     <div class="bg-base-100 rounded-box shadow-md">
         <ul v-if="memos.length" class="list list-disc">
             <li v-for="memo in memos" :key="memo.id" class="list-row">
@@ -11,6 +14,8 @@
 </template>
 
 <script setup lang="ts">
+import { Link } from "@inertiajs/vue3";
+
 const { memos } = defineProps<{
     memos: {
         id: number;

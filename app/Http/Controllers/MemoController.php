@@ -3,16 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Memo;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class MemoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index(): Response
+    public function list(): Response
     {
         $memos = Memo::all()->toResourceCollection();
 
@@ -21,51 +19,30 @@ class MemoController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function new(): Response
     {
-        //
+        return Inertia::render('Memo/New');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function create(Request $request): RedirectResponse
     {
-        //
-    }
+        $validated = $request->validate(
+            [
+                'content' => [
+                    'required',
+                    'string'
+                ]
+            ],
+            [
+                'content.required' => 'contentNotFound',
+                'content.string' => 'contentNotCorrectType'
+            ]
+        );
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+        Memo::query()->create([
+            'content' => $validated['content']
+        ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return redirect()->route('memo.list')->with('success', '保存に成功しました。');
     }
 }
