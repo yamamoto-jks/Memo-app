@@ -3,7 +3,7 @@
 
     {{ count }}
     <br />
-    <button @click="countUp">Count Up</button>
+    <button class="btn" @click="countUp">Count Up</button>
 </template>
 <script setup>
 import { ref } from "vue";
