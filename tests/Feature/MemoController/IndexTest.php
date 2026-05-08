@@ -25,7 +25,7 @@ class IndexTest extends TestCase
         $this->get('/')
             ->assertStatus(200)
             ->assertInertia(function (AssertableInertia $page): void {
-                $page->has('memos.data', 0);
+                $page->has('memos', 0);
             });
     }
 
@@ -40,12 +40,12 @@ class IndexTest extends TestCase
         $this->get('/')
             ->assertStatus(200)
             ->assertInertia(function (AssertableInertia $page) use ($memoId): void {
-                $page->has('memos.data', 1)
+                $page->has('memos', 1)
                     ->whereAll([
-                        'memos.data.0.id' => $memoId,
-                        'memos.data.0.content' => 'テストメモ',
-                        'memos.data.0.created_at' => '2000-01-01 00:00:00',
-                        'memos.data.0.updated_at' => '2000-01-02 11:11:11'
+                        'memos.0.id' => $memoId,
+                        'memos.0.content' => 'テストメモ',
+                        'memos.0.created_at' => '2000-01-01 00:00:00',
+                        'memos.0.updated_at' => '2000-01-02 11:11:11'
                     ]);
             });
     }
@@ -58,10 +58,10 @@ class IndexTest extends TestCase
         $this->get('/')
             ->assertStatus(200)
             ->assertInertia(function (AssertableInertia $page): void {
-                $page->has('memos.data', 2)
+                $page->has('memos', 2)
                     ->whereAll([
-                        'memos.data.0.content' => 'テストメモ',
-                        'memos.data.1.content' => 'テストメモ2',
+                        'memos.0.content' => 'テストメモ',
+                        'memos.1.content' => 'テストメモ2',
                     ]);
             });
     }
