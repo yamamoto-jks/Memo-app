@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use Inertia\Testing\AssertableInertia;
 
-class IndexTest extends TestCase
+class ListTest extends TestCase
 {
     use RefreshDatabase;
 
