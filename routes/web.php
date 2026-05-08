@@ -1,9 +1,6 @@
 <?php
 
+use App\Http\Controllers\MemoController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
-Route::get('/', function () {
-    // return view('welcome');
-    return Inertia::render('Welcome');
-});
+Route::get('/', [MemoController::class, 'index']);

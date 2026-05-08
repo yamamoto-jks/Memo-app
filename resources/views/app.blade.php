@@ -5,7 +5,9 @@
         @vite(['resources/css/app.css', 'resources/js/app.ts'])
         <x-inertia::head />
     </head>
-    <body>
-        <x-inertia::app />
+    <body class="bg-base-300">
+        <div class="p-8">
+            <x-inertia::app />
+        </div>
     </body>
 </html>
