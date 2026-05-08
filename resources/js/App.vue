@@ -1,5 +1,5 @@
 <template>
-    <div v-if="showToast" class="toast toast-end">
+    <div v-if="showToast" role="status" class="toast toast-end">
         <div class="alert alert-success">
             <span>{{ flashSuccessMessage }}</span>
         </div>
@@ -32,9 +32,9 @@ const showToast = ref(false);
 watch(flashSuccessMessage, (message) => {
     if (message) {
         showToast.value = true;
-        setTimeout(() => {
-            showToast.value = false;
-        }, 3000);
+        // setTimeout(() => {
+        //     showToast.value = false;
+        // }, 3000);
     }
 });
 </script>

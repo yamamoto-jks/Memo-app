@@ -25,10 +25,10 @@ const form = useForm<{
 const error = ref<string | null>(null);
 
 const onCreate = () => {
-    // if (!form.content) {
-    //     error.value = "メモを入力してください。";
-    //     return;
-    // }
+    if (!form.content) {
+        error.value = "メモを入力してください。";
+        return;
+    }
 
     form.post("/", {
         onError: (err) => {
