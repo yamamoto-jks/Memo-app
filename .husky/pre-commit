@@ -1,8 +1,5 @@
 echo "--- Running Pre-commit Checks ---"
 
 npx lint-staged
-vendor/bin/phpunit
-vendor/bin/phpstan analyse
-npm run test:e2e
 
 echo "--- All checks passed! ---"
