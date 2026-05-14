@@ -32,9 +32,9 @@ const showToast = ref(false);
 watch(flashSuccessMessage, (message) => {
     if (message) {
         showToast.value = true;
-        // setTimeout(() => {
-        //     showToast.value = false;
-        // }, 3000);
+        setTimeout(() => {
+            showToast.value = false;
+        }, 3000);
     }
 });
 </script>
