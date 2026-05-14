@@ -23,6 +23,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install Dependencies
+        run: npm ci
+      - name: build frontend
+        run: npm run build
+
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -39,11 +49,33 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.5"
+      - name: Install PHP Dependencies
+        run: composer install -q --no-ansi --no-interaction
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
       - name: Install Dependencies
         run: npm ci
+      - name: build frontend
+        run: npm run build
+
+      - name: Install Playwright Browsers
+        run: npx playwright install chromium --with-deps
+      - name: Create SQLite Database
+        run: |
+          mkdir -p database
+          touch database/testing.sqlite
       - name: Run E2E Tests
-        run: npm run test:e2e
+        run: npm run test:e2e -- --project=chromium
+        env:
+          DB_CONNECTION: sqlite
+          DB_DATABASE: database/testing.sqlite
+          APP_URL: http://127.0.0.1:8000
+          APP_ENV: testing
+          APP_KEY: ${{ secrets.APP_KEY }}
