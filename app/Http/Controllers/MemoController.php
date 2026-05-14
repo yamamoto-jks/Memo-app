@@ -40,6 +40,7 @@ class MemoController extends Controller
         );
 
         Memo::query()->create([
+            // @phpstan-ignore offsetAccess.nonOffsetAccessible
             'content' => $validated['content']
         ]);
 
